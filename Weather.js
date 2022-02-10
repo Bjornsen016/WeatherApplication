@@ -4,6 +4,6 @@ export default class Weather {
     this.url = "api.openweathermap.org/data/2.5/onecall";
 
     // Exempel
-    // api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=5aea0ff31a0b778fdf225480e5f7002f
+    // api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=80a21c47a4285bedd4a78e3deec371e2
   }
 }
