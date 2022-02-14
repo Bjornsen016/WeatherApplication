@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply overflow-hidden;
+}
+
+header li {
+  @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md m-2;
+}
