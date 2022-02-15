@@ -45,8 +45,12 @@ export default class Weather {
 	 * @param {number} long
 	 * @returns {Object} An object with daily weather info
 	 */
-	async getDailyWeather(lat = this.latitude, long = this.longitude) {
-		const url = this.buildURL(lat, long, "daily");
+	async getWeather(
+		whatWeatherData,
+		lat = this.latitude,
+		long = this.longitude
+	) {
+		const url = this.buildURL(lat, long, whatWeatherData);
 
 		return await fetch(url).then((response) => {
 			if (!response.ok) {
