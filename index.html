@@ -14,20 +14,22 @@
       class="m-3 shadow-md rounded-md max-w-5xl mx-auto overflow-hidden bg-sky-400 h-[800px]"
     >
       <header>
-        <ul class="flex max-w-md mx-auto justify-around">
-          <li>Just nu</li>
-          <li>Idag</li>
-          <li>Veckoprognos</li>
+        <ul class="flex max-w-md mx-auto justify-around" id="nav">
+          <li id="nowBut">Just nu</li>
+          <li id="todayBut">Idag</li>
+          <li id="weekBut">Veckoprognos</li>
         </ul>
       </header>
 
-      <div id="today" class="h-full p-20">
+      <div id="nowDiv" class="h-full p-20">
         <div id="window"></div>
         <h1
           class="text-center text-white text-3xl font-thin mt-4 select-none"
-          id="todayText"
+          id="nowText"
         ></h1>
       </div>
+
+      <div id="todayDiv"></div>
     </div>
     <script type="module" src="main.js"></script>
   </body>

@@ -19,6 +19,7 @@ export default class Weather {
     url.searchParams.set("lon", pos.lon);
     url.searchParams.set("exclude", "minutely");
     url.searchParams.set("appid", this.key);
+    url.searchParams.set("lang", "se");
 
     return fetch(url)
       .then((res) => res.json())
@@ -55,6 +56,14 @@ export default class Weather {
         (item) => item.name == currentCondition
       );
       callback(background[0].url, currentCondition);
+    });
+  }
+
+  getHourly(callback) {
+    this.getLocalWeather().then((data) => {
+      for (let i = 0; i < 24; i = i + 4) {
+        callback(data.hourly[i]);
+      }
     });
   }
 }

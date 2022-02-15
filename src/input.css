@@ -17,3 +17,28 @@ header li {
   background-size: cover;
   background-position: center;
 }
+
+#todayDiv {
+  @apply flex flex-row justify-center flex-wrap;
+}
+
+article {
+  @apply justify-center mx-16  my-8 w-40 bg-sky-500/50 rounded-md text-white font-medium text-center flex flex-col overflow-hidden;
+  box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
+}
+
+article h1 {
+  @apply text-lg p-3 bg-sky-600;
+}
+
+article h2 {
+  @apply pt-3;
+}
+
+article p {
+  @apply pb-3;
+}
+
+article img {
+  @apply w-32 mx-auto;
+}

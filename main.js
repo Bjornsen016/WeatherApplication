@@ -4,19 +4,19 @@ const weather = new Weather();
 const backgrounds = [
   {
     name: "Rain",
-    url: "https://media0.giphy.com/media/v4O67LvPwtbS6ULWJS/giphy.gif?cid=790b76113633436a22702d46b5c2b570ec7d351146ed9dee&rid=giphy.gif&ct=s",
+    url: "https://media4.giphy.com/media/xUPGcdhiQf2vbfDCyk/giphy.gif?cid=ecf05e47kf91tsmns5sp0y6ch6pv0twmxmq86ukz38atf009&rid=giphy.gif&ct=g",
   },
   {
     name: "Snow",
-    url: "https://media4.giphy.com/media/iq3nJr0SbPTcDpInRf/giphy.gif?cid=ecf05e470ec1o0wfkdpeo0n9j3257mq7nn70xln0id03n5s3&rid=giphy.gif&ct=g",
+    url: "https://media1.giphy.com/media/d3mlmtNPoxNrt4Bi/giphy.gif?cid=ecf05e470wuj51br6dtxnbzobljgfws7nibssishs4v0ghka&rid=giphy.gif&ct=g",
   },
   {
     name: "Clouds",
-    url: "https://media0.giphy.com/media/5b9u8sfNYp4eXWwLYf/200w.webp?cid=ecf05e47pl3my04umww3spj0ifmabt3y1ma7ksus3ptpw3bb&rid=200w.webp&ct=g",
+    url: "https://media0.giphy.com/media/d5PPYjcb3caPTHM3hv/giphy.gif?cid=ecf05e47nrydepn9iphbq9ubjouhmz7s9qlav40iqzabmnss&rid=giphy.gif&ct=g",
   },
   {
     name: "Clear",
-    url: "https://1b-f.s3.eu-west-1.amazonaws.com/a/166346-389E52E8-FC15-49FD-A829-874CEC2F2089-0-1588626794.gif",
+    url: "https://media0.giphy.com/media/EKpmZuydbsmRy/giphy.gif?cid=ecf05e47rx85450iutghyhy7nd1y7td8k47al5ti8fdmd026&rid=giphy.gif&ct=g",
   },
   {
     name: "Drizzle",
@@ -28,9 +28,44 @@ const backgrounds = [
   },
 ];
 
-function renderToday(background, type) {
+document.getElementById("nav").addEventListener("click", (e) => {
+  toggle(e.target.getAttribute("id"));
+});
+
+function toggle(button) {
+  switch (button) {
+    case "nowBut":
+      let nowDiv = document.getElementById("nowDiv");
+
+      nowDiv.style.display === "none"
+        ? (nowDiv.style.display = "")
+        : (nowDiv.style.display = "none");
+      break;
+
+    case "today":
+      let todayDiv = document.getElementById("todayDiv");
+
+      todayDiv.style.display === "none"
+        ? (todayDiv.style.display = "")
+        : (todayDiv.style.display = "none");
+      break;
+
+    case "week":
+      let weekDiv = document.getElementById("weekDiv");
+
+      weekDiv.style.display === "none"
+        ? (weekDiv.style.display = "")
+        : (weekDiv.style.display = "none");
+      break;
+
+    default:
+      break;
+  }
+}
+
+function renderNow(background, type) {
   let targetWindow = document.getElementById("window");
-  let targetText = document.getElementById("todayText");
+  let targetText = document.getElementById("nowText");
   targetWindow.style.backgroundImage = `url(${background})`;
 
   switch (type) {
@@ -60,4 +95,22 @@ function renderToday(background, type) {
   }
 }
 
-weather.setBackground(renderToday, backgrounds);
+function renderToday(item) {
+  let todayDiv = document.getElementById("todayDiv");
+  let time = new Date(item.dt * 1000).toLocaleTimeString();
+  console.log(time);
+
+  todayDiv.innerHTML += `
+    <article>
+        <h1>${time}</h1>
+        <h2>${Math.floor(item.temp - 273.15) + " Grader"}</h2>
+        <img src="http://openweathermap.org/img/wn/${
+          item.weather[0].icon
+        }@2x.png" alt="${item.weather[0].description}" />
+        <p>${item.weather[0].description}</p>
+    </article> 
+    `;
+}
+
+weather.setBackground(renderNow, backgrounds);
+weather.getHourly(renderToday);
