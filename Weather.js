@@ -3,7 +3,7 @@
 
 import { createExludeString } from "./utils.js";
 export default class Weather {
-	constructor(longitude, latitude) {
+	constructor(longitude = 24.943091, latitude = 60.1685) {
 		this.key = "be39c2840d85ea762047c50843b4d1c4";
 
 		this.longitude = longitude;
@@ -37,5 +37,22 @@ export default class Weather {
 		url.searchParams.set("exclude", exludeString);
 
 		return url.href;
+	}
+
+	/**
+	 *
+	 * @param {number} lat
+	 * @param {number} long
+	 * @returns {Object} An object with daily weather info
+	 */
+	async getDailyWeather(lat = this.latitude, long = this.longitude) {
+		const url = this.buildURL(lat, long, "daily");
+
+		return await fetch(url).then((response) => {
+			if (!response.ok) {
+				throw new Error("Network response was not OK" + response.status);
+			}
+			return response.json();
+		});
 	}
 }

@@ -1,5 +1,10 @@
 import Weather from "./Weather.js";
 
-const weather = new Weather(12.2, 60);
+const weather = new Weather();
 
-weather.buildURL(13, 18, "current");
+async function test() {
+	let test = await weather.getDailyWeather();
+	console.log(test);
+}
+
+test();
