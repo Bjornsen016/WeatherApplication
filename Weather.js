@@ -2,10 +2,6 @@ export default class Weather {
   constructor() {
     this.key = "80a21c47a4285bedd4a78e3deec371e2";
     this.pos = [];
-    this.data = [];
-    this.currentWeather = [];
-    this.hourlyWeather = [];
-    this.dailyWeather = [];
 
     // Exempel
     // api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=80a21c47a4285bedd4a78e3deec371e2
@@ -31,22 +27,34 @@ export default class Weather {
       });
   }
 
-  setWeather(weatherData) {
-    this.currentWeather = weatherData.cuurent;
-    this.hourlyWeather = weatherData.hourly;
-    this.dailyWeather = weatherData.daily;
+  getWeather(weatherData) {
+    return {
+      current: weatherData.current,
+      hourly: weatherData.hourly,
+      daily: weatherData.daily,
+    };
   }
 
   getLocalWeather() {
-    this.getPosition()
+    return this.getPosition()
       .then(
         (res) =>
           (this.pos = { lat: res.coords.latitude, lon: res.coords.longitude })
       )
       .then(() => {
-        this.fetchWeather(this.pos).then((data) => {
-          this.setWeather(data);
-        });
+        return this.fetchWeather(this.pos).then((data) =>
+          this.getWeather(data)
+        );
       });
+  }
+
+  async setBackground(callback, backgrounds) {
+    this.getLocalWeather().then((data) => {
+      const currentCondition = data.current.weather[0].main;
+      let background = backgrounds.filter(
+        (item) => item.name == currentCondition
+      );
+      callback(background[0].url, currentCondition);
+    });
   }
 }

@@ -9,3 +9,11 @@ body {
 header li {
   @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md m-2;
 }
+
+#window {
+  @apply mx-auto mt-10 rounded-full w-96 h-96;
+  box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
+}

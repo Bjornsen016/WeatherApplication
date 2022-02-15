@@ -9,22 +9,24 @@
   </head>
 
   <body>
-    <div id="container" class="m-3 shadow-md rounded-md overflow-hidden">
-      <header class="bg-sky-400/50 w-full">
+    <div
+      id="container"
+      class="m-3 shadow-md rounded-md max-w-5xl mx-auto overflow-hidden bg-sky-400 h-[800px]"
+    >
+      <header>
         <ul class="flex max-w-md mx-auto justify-around">
           <li>Just nu</li>
           <li>Idag</li>
           <li>Veckoprognos</li>
         </ul>
       </header>
-      <div id="views">
-        <div id="today" class="bg-gradient-to-bl from-sky-300 to-slate-300">
-          <img
-            src="https://media4.giphy.com/media/Wmp1EOzVybWd13s5DB/giphy.gif"
-            alt="snowing"
-            class="w-full h-4/6"
-          />
-        </div>
+
+      <div id="today" class="h-full p-20">
+        <div id="window"></div>
+        <h1
+          class="text-center text-white text-3xl font-thin mt-4 select-none"
+          id="todayText"
+        ></h1>
       </div>
     </div>
     <script type="module" src="main.js"></script>
