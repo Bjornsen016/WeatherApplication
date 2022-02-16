@@ -20,6 +20,7 @@ export default class Weather {
 		// Exempel
 		// api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=80a21c47a4285bedd4a78e3deec371e2
 	}
+
 	/**
 	 *
 	 * @param {number} longitude
@@ -33,7 +34,6 @@ export default class Weather {
 		url.searchParams.set("lon", longitude);
 
 		let exludeString = createExludeString(include);
-
 		url.searchParams.set("exclude", exludeString);
 
 		return url.href;
@@ -43,6 +43,7 @@ export default class Weather {
 	 *
 	 * @param {number} lat
 	 * @param {number} long
+	 * @param {string} include Part of the weather report that you want to look at.
 	 * @returns {Object} An object with daily weather info
 	 */
 	async getWeather(
@@ -59,4 +60,23 @@ export default class Weather {
 			return response.json();
 		});
 	}
+
+	getPosition() {
+		return new Promise((resolve) =>
+			navigator.geolocation.getCurrentPosition(resolve, (err) => {
+				throw err;
+			})
+		);
+	}
+
+	async getLocalWeather(whatWeatherData) {
+		const pos = await this.getPosition();
+
+		const lat = pos.coords.latitude;
+		const long = pos.coords.longitude;
+
+		return await this.getWeather(whatWeatherData, lat, long);
+	}
+
+	//TODO getPosition(){//ta fram current position och sätt long och lat till de både i url och som nersparat}
 }
