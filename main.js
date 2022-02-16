@@ -42,15 +42,6 @@ document.getElementById("saved").addEventListener("click", (e) => {
 
     if (dropdown.style.display === "none") {
       dropdown.style.display = "flex";
-
-      const submit = document.getElementById("submit");
-
-      submit.addEventListener("click", (e) => {
-        console.log("im running");
-        const form = document.getElementById("city");
-        addCity(form.value);
-        form.parentElement.reset();
-      });
     } else {
       dropdown.style.display = "none";
     }
@@ -61,6 +52,14 @@ document.getElementById("saved").addEventListener("click", (e) => {
     console.log(city);
     // Kalla på funktionen som plockar fram vädret för staden
   }
+});
+
+document.getElementById("submit").addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log("im running");
+  const form = document.getElementById("city");
+  addCity(form.value);
+  form.parentElement.reset();
 });
 
 document.getElementById("nav").addEventListener("click", (e) => {
@@ -85,7 +84,7 @@ document.getElementById("nav").addEventListener("click", (e) => {
 
 function addCity(city) {
   const target = document.getElementById("savedList");
-  target.innerHTML += `<li>${city}</li>`;
+  if (city !== "") target.innerHTML += `<li>${city}</li>`;
 }
 
 function renderNow(background, type) {
