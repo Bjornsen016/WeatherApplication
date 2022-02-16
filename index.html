@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="main.css" />
     <title>Väder ☁️</title>
   </head>
@@ -11,7 +15,7 @@
   <body>
     <div
       id="container"
-      class="m-3 shadow-md rounded-md max-w-5xl mx-auto overflow-hidden bg-sky-400 h-[800px]"
+      class="shadow-md rounded-md max-w-5xl mx-auto mt-3 overflow-hidden bg-sky-400 p-3"
     >
       <header>
         <ul class="flex max-w-md mx-auto justify-around" id="nav">
@@ -19,8 +23,18 @@
           <li id="todayBut">Idag</li>
           <li id="weekBut">Veckoprognos</li>
         </ul>
+        <div id="saved">
+          <ul>
+            <li>Stockholm</li>
+            <li>Göteborg</li>
+            <li>Uppsala</li>
+            <li>Jönköping</li>
+          </ul>
+          <em class="fa fa-plus"></em>
+        </div>
       </header>
 
+      <div id="main"></div>
       <div id="nowDiv" class="h-full p-20">
         <div id="window"></div>
         <h1

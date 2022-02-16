@@ -32,37 +32,6 @@ document.getElementById("nav").addEventListener("click", (e) => {
   toggle(e.target.getAttribute("id"));
 });
 
-function toggle(button) {
-  switch (button) {
-    case "nowBut":
-      let nowDiv = document.getElementById("nowDiv");
-
-      nowDiv.style.display === "none"
-        ? (nowDiv.style.display = "")
-        : (nowDiv.style.display = "none");
-      break;
-
-    case "today":
-      let todayDiv = document.getElementById("todayDiv");
-
-      todayDiv.style.display === "none"
-        ? (todayDiv.style.display = "")
-        : (todayDiv.style.display = "none");
-      break;
-
-    case "week":
-      let weekDiv = document.getElementById("weekDiv");
-
-      weekDiv.style.display === "none"
-        ? (weekDiv.style.display = "")
-        : (weekDiv.style.display = "none");
-      break;
-
-    default:
-      break;
-  }
-}
-
 function renderNow(background, type) {
   let targetWindow = document.getElementById("window");
   let targetText = document.getElementById("nowText");
@@ -96,9 +65,11 @@ function renderNow(background, type) {
 }
 
 function renderToday(item) {
-  let todayDiv = document.getElementById("todayDiv");
-  let time = new Date(item.dt * 1000).toLocaleTimeString();
-  console.log(time);
+  let main = document.getElementById("main");
+  let time = new Date(item.dt * 1000).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   todayDiv.innerHTML += `
     <article>

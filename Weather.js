@@ -8,8 +8,10 @@ export default class Weather {
   }
 
   getPosition() {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(resolve, (err) => {
+        alert(error);
+      });
     });
   }
 

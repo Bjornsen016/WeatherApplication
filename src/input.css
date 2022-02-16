@@ -3,11 +3,29 @@
 @tailwind utilities;
 
 body {
-  @apply overflow-hidden;
+  @apply overflow-hidden bg-sky-100;
 }
 
-header li {
-  @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md m-2;
+#nav li,
+#saved li {
+  @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md;
+}
+
+#saved {
+  @apply flex justify-center items-center max-w-4xl rounded-full 
+  mx-auto bg-sky-500 shadow-inner p-1 m-2 font-thin text-white;
+}
+
+#saved ul {
+  @apply flex justify-around w-full;
+}
+
+#saved li {
+  @apply font-light !important;
+}
+
+#saved em {
+  @apply bg-sky-600 shadow-md p-3 rounded-full cursor-pointer hover:bg-sky-400;
 }
 
 #window {
