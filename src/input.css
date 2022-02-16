@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply overflow-hidden bg-sky-100;
+  @apply overflow-hidden bg-sky-100 select-none;
 }
 
 #nav li,
@@ -25,24 +25,49 @@ body {
 }
 
 #saved em {
-  @apply bg-sky-600 shadow-md p-3 rounded-full cursor-pointer hover:bg-sky-400;
+  @apply bg-sky-400 shadow-md p-3 rounded-full cursor-pointer hover:shadow-sm relative;
+}
+
+#dropdown {
+  @apply absolute right-1 top-12 p-3 bg-zinc-100/10 shadow-lg rounded-lg 
+  flex flex-col items-center cursor-default;
+  font-family: ui-sans-serif, system-ui;
+  display: none;
+}
+
+#dropdown input {
+  @apply p-2 rounded-lg shadow-inner text-black
+  placeholder:text-base outline-none mb-4 bg-zinc-100/80;
+}
+
+#dropdown button {
+  @apply bg-sky-500 p-3 rounded-full font-medium shadow-sm;
 }
 
 #window {
-  @apply mx-auto mt-10 rounded-full w-96 h-96;
+  @apply rounded-full w-96 h-96;
   box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
   background-repeat: none;
   background-size: cover;
   background-position: center;
 }
 
-#todayDiv {
-  @apply flex flex-row justify-center flex-wrap;
+#now {
+  @apply h-[900px] flex flex-col justify-center items-center;
+}
+
+#nowText {
+  @apply text-center text-white text-3xl font-thin mt-4;
+}
+
+#main {
+  @apply flex flex-row justify-center items-center h-[900px] flex-wrap;
 }
 
 article {
-  @apply justify-center mx-16  my-8 w-40 bg-sky-500/50 rounded-md text-white font-medium text-center flex flex-col overflow-hidden;
-  box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
+  @apply justify-center mx-16  my-8 w-40 bg-sky-500/50 rounded-md 
+  text-white font-medium text-center flex flex-col overflow-hidden
+  shadow-md;
 }
 
 article h1 {
