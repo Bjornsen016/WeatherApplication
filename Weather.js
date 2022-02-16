@@ -3,12 +3,10 @@
 
 import { createExludeString } from "./utils.js";
 export default class Weather {
-	constructor(longitude = 24.943091, latitude = 60.1685) {
+	constructor(longitude = 11.977863, latitude = 57.716619) {
+		this.location = { longitude: longitude, latitude: latitude, city: "" };
+
 		this.key = "be39c2840d85ea762047c50843b4d1c4";
-
-		this.longitude = longitude;
-		this.latitude = latitude;
-
 		this.url = new URL("https://api.openweathermap.org");
 		this.url.pathname = "/data/2.5/onecall";
 		this.url.searchParams.set("units", "metric");
@@ -48,8 +46,8 @@ export default class Weather {
 	 */
 	async getWeather(
 		whatWeatherData,
-		lat = this.latitude,
-		long = this.longitude
+		lat = this.location.latitude,
+		long = this.location.longitude
 	) {
 		const url = this.buildURL(lat, long, whatWeatherData);
 
@@ -72,11 +70,10 @@ export default class Weather {
 	async getLocalWeather(whatWeatherData) {
 		const pos = await this.getPosition();
 
-		const lat = pos.coords.latitude;
-		const long = pos.coords.longitude;
+		this.location.latitude = pos.coords.latitude;
+		this.location.longitude = pos.coords.longitude;
+		this.location.city = "";
 
-		return await this.getWeather(whatWeatherData, lat, long);
+		return await this.getWeather(whatWeatherData);
 	}
-
-	//TODO getPosition(){//ta fram current position och sätt long och lat till de både i url och som nersparat}
 }
