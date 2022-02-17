@@ -58,7 +58,10 @@ export default class Weather {
 			return response.json();
 		});
 	}
-
+	/**
+	 *
+	 * @returns A promis with position information. We want to look at position.coords.latitude / longitude
+	 */
 	getPosition() {
 		return new Promise((resolve) =>
 			navigator.geolocation.getCurrentPosition(resolve, (err) => {
@@ -66,7 +69,11 @@ export default class Weather {
 			})
 		);
 	}
-
+	/**
+	 *
+	 * @param {string} whatWeatherData - what weather information we want.
+	 * @returns {Object} A weather report object
+	 */
 	async getLocalWeather(whatWeatherData) {
 		const pos = await this.getPosition();
 
@@ -75,5 +82,21 @@ export default class Weather {
 		this.location.city = "";
 
 		return await this.getWeather(whatWeatherData);
+	}
+
+	async getCity() {
+		const url = new URL("https://api.bigdatacloud.net");
+		url.pathname = "/data/reverse-geocode-client";
+		url.searchParams.set("latitude", this.location.latitude);
+		url.searchParams.set("longitude", this.location.longitude);
+		url.searchParams.set("localityLanguage", "sv");
+		console.log(url.href);
+
+		const returnedCity = await fetch(url).then((response) => response.json());
+
+		returnedCity.city != null
+			? (this.location.city = returnedCity.city)
+			: (this.location.city = returnedCity.localityInfo.administrative[4].name);
+		return this.location.city;
 	}
 }

@@ -1,10 +1,10 @@
 import Weather from "./Weather.js";
 
-const weather = new Weather();
+const weather = new Weather(-122, 37);
 
 async function test() {
-	let något = await weather.getLocalWeather("daily");
-	console.log(något);
+	const city = await weather.getCity();
+	console.log(city);
 	/* något.then((data) => console.log(data)); */
 
 	/* let test = weather.getWeather("daily");
