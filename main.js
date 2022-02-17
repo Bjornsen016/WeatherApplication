@@ -78,6 +78,8 @@ document.getElementById("nav").addEventListener("click", (e) => {
       weather.getHourly(renderToday);
       break;
     case 3:
+      clear();
+      weather.getDaily(renderWeek);
       break;
   }
 });
@@ -122,5 +124,28 @@ function renderToday(item) {
     `;
 }
 
+function renderWeek(item) {
+  const main = document.getElementById("main");
+  const t = new Date(item.dt * 1000);
+  const days = [
+    "Måndag",
+    "Tisdag",
+    "Onsdag",
+    "Torsdag",
+    "Fredag",
+    "Lördag",
+    "Söndag",
+  ];
+
+  main.innerHTML += `
+  <article>
+    <h1>${days[t.getDay()]}<br>${t.toLocaleDateString()}</br></h1>
+    <h2>${Math.floor(item.temp.day - 273.15) + " Grader"}</h2>
+    <img src="http://openweathermap.org/img/wn/${
+      item.weather[0].icon
+    }@2x.png" alt="${item.weather[0].description}" />
+    <p>${item.weather[0].description}</p>
+  </article> `;
+}
+
 weather.setBackground(renderNow, backgrounds);
-// weather.getHourly(renderToday);

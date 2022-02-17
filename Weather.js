@@ -68,4 +68,12 @@ export default class Weather {
       }
     });
   }
+
+  getDaily(callback) {
+    this.getLocalWeather().then((data) => {
+      data.daily.map((item) => {
+        callback(item);
+      });
+    });
+  }
 }

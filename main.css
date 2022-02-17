@@ -721,14 +721,11 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 article {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem;
   display: flex;
   width: 10rem;
   flex-direction: column;
@@ -758,7 +755,8 @@ article h2 {
 }
 
 article p {
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.75rem !important;
+  font-weight: 100 !important;
 }
 
 article img {

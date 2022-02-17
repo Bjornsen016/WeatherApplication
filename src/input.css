@@ -61,11 +61,11 @@ body {
 }
 
 #main {
-  @apply flex flex-row justify-center items-center h-[900px] flex-wrap;
+  @apply flex flex-row justify-evenly items-center h-[900px] flex-wrap;
 }
 
 article {
-  @apply justify-center mx-16  my-8 w-40 bg-sky-500/50 rounded-md 
+  @apply justify-center w-40 m-8 bg-sky-500/50 rounded-md 
   text-white font-medium text-center flex flex-col overflow-hidden
   shadow-md;
 }
@@ -79,7 +79,7 @@ article h2 {
 }
 
 article p {
-  @apply pb-3;
+  @apply pb-3 font-thin !important;
 }
 
 article img {
