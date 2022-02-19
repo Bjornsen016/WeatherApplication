@@ -39,6 +39,7 @@ export default class Weather {
 
 	/**
 	 *
+	 * @param {string} whatWeatherData
 	 * @param {number} lat
 	 * @param {number} long
 	 * @param {string} include Part of the weather report that you want to look at.
@@ -49,7 +50,7 @@ export default class Weather {
 		lat = this.location.latitude,
 		long = this.location.longitude
 	) {
-		const url = this.buildURL(lat, long, whatWeatherData);
+		const url = this.buildURL(long, lat, whatWeatherData);
 
 		return await fetch(url).then((response) => {
 			if (!response.ok) {
@@ -80,6 +81,12 @@ export default class Weather {
 		this.location.latitude = pos.coords.latitude;
 		this.location.longitude = pos.coords.longitude;
 		this.location.city = "";
+
+		return await this.getWeather(whatWeatherData);
+	}
+
+	async getWeatherAtSpecificPosition(position, whatWeatherData) {
+		this.position = position;
 
 		return await this.getWeather(whatWeatherData);
 	}
