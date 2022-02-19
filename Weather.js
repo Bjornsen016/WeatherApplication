@@ -1,79 +1,79 @@
+// Kims nyckel: be39c2840d85ea762047c50843b4d1c4
+// Idris nyckel: 80a21c47a4285bedd4a78e3deec371e2
+
+import { createExludeString } from "./utils.js";
 export default class Weather {
-  constructor() {
-    this.key = "80a21c47a4285bedd4a78e3deec371e2";
-    this.pos = [];
+  constructor(longitude = 11.977863, latitude = 57.716619) {
+    this.location = { longitude: longitude, latitude: latitude, city: "" };
+
+    this.key = "be39c2840d85ea762047c50843b4d1c4";
+    this.url = new URL("https://api.openweathermap.org");
+    this.url.pathname = "/data/2.5/onecall";
+    this.url.searchParams.set("units", "metric");
+    this.url.searchParams.set("lang", "sv");
+    this.url.searchParams.set("appid", `${this.key}`);
+    this.url.searchParams.set("lat", latitude);
+    this.url.searchParams.set("lon", longitude);
 
     // Exempel
     // api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&appid=80a21c47a4285bedd4a78e3deec371e2
   }
 
-  getPosition() {
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(resolve, (err) => {
-        alert(error);
-      });
-    });
+  /**
+   *
+   * @param {number} longitude
+   * @param {number} latitude
+   * @param {string} include Part of the weather report that you want to look at.
+   * @returns {string} A string with an URL to use in the API call.
+   */
+  buildURL(longitude, latitude, include) {
+    const url = new URL("", this.url);
+    url.searchParams.set("lat", latitude);
+    url.searchParams.set("lon", longitude);
+
+    let exludeString = createExludeString(include);
+    url.searchParams.set("exclude", exludeString);
+
+    return url.href;
   }
 
-  fetchWeather(pos) {
-    const url = new URL("https://api.openweathermap.org/data/2.5/onecall");
-    url.searchParams.set("lat", pos.lat);
-    url.searchParams.set("lon", pos.lon);
-    url.searchParams.set("exclude", "minutely");
-    url.searchParams.set("appid", this.key);
-    url.searchParams.set("lang", "se");
+  /**
+   *
+   * @param {number} lat
+   * @param {number} long
+   * @param {string} include Part of the weather report that you want to look at.
+   * @returns {Object} An object with daily weather info
+   */
+  async getWeather(
+    whatWeatherData,
+    lat = this.location.latitude,
+    long = this.location.longitude
+  ) {
+    const url = this.buildURL(lat, long, whatWeatherData);
 
-    return fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  }
-
-  getWeather(weatherData) {
-    return {
-      current: weatherData.current,
-      hourly: weatherData.hourly,
-      daily: weatherData.daily,
-    };
-  }
-
-  getLocalWeather() {
-    return this.getPosition()
-      .then(
-        (res) =>
-          (this.pos = { lat: res.coords.latitude, lon: res.coords.longitude })
-      )
-      .then(() => {
-        return this.fetchWeather(this.pos).then((data) =>
-          this.getWeather(data)
-        );
-      });
-  }
-
-  async setBackground(callback, backgrounds) {
-    this.getLocalWeather().then((data) => {
-      const currentCondition = data.current.weather[0].main;
-      let background = backgrounds.filter(
-        (item) => item.name == currentCondition
-      );
-      callback(background[0].url, currentCondition);
-    });
-  }
-
-  getHourly(callback) {
-    this.getLocalWeather().then((data) => {
-      for (let i = 0; i < 24; i = i + 4) {
-        callback(data.hourly[i]);
+    return await fetch(url).then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not OK" + response.status);
       }
+      return response.json();
     });
   }
 
-  getDaily(callback) {
-    this.getLocalWeather().then((data) => {
-      data.daily.map((item) => {
-        callback(item);
-      });
-    });
+  getPosition() {
+    return new Promise((resolve) =>
+      navigator.geolocation.getCurrentPosition(resolve, (err) => {
+        throw err;
+      })
+    );
+  }
+
+  async getLocalWeather(whatWeatherData) {
+    const pos = await this.getPosition();
+
+    this.location.latitude = pos.coords.latitude;
+    this.location.longitude = pos.coords.longitude;
+    this.location.city = "";
+
+    return await this.getWeather(whatWeatherData);
   }
 }

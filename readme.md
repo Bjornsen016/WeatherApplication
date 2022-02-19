@@ -1,3 +1,10 @@
+# Att göra
+
+- Navigation med dropdown-meny
+- Funktion för att spara städer
+- Funktion som målar upp korten - kallar på fetch
+
+
 # Grupprojekt - frontend app beskrivning
 
 Ni ska jobba i par och det vanliga gäller när det kommer till jämt committande. Ni kan dela upp arbetet eller parkoda hur ni vill förutom när det kommer till web-api anropen.
