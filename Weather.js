@@ -37,43 +37,76 @@ export default class Weather {
     return url.href;
   }
 
-  /**
-   *
-   * @param {number} lat
-   * @param {number} long
-   * @param {string} include Part of the weather report that you want to look at.
-   * @returns {Object} An object with daily weather info
-   */
-  async getWeather(
-    whatWeatherData,
-    lat = this.location.latitude,
-    long = this.location.longitude
-  ) {
-    const url = this.buildURL(lat, long, whatWeatherData);
+	/**
+	 *
+	 * @param {string} whatWeatherData
+	 * @param {number} lat
+	 * @param {number} long
+	 * @param {string} include Part of the weather report that you want to look at.
+	 * @returns {Object} An object with daily weather info
+	 */
+	async getWeather(
+		whatWeatherData,
+		lat = this.location.latitude,
+		long = this.location.longitude
+	) {
+		const url = this.buildURL(long, lat, whatWeatherData);
 
-    return await fetch(url).then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not OK" + response.status);
-      }
-      return response.json();
-    });
-  }
+		return await fetch(url).then((response) => {
+			if (!response.ok) {
+				throw new Error("Network response was not OK" + response.status);
+			}
+			return response.json();
+		});
+	}
+	/**
+	 *
+	 * @returns A promis with position information. We want to look at position.coords.latitude / longitude
+	 */
+	getPosition() {
+		return new Promise((resolve) =>
+			navigator.geolocation.getCurrentPosition(resolve, (err) => {
+				throw err;
+			})
+		);
+	}
+	/**
+	 *
+	 * @param {string} whatWeatherData - what weather information we want.
+	 * @returns {Object} A weather report object
+	 */
+	async getLocalWeather(whatWeatherData) {
+		const pos = await this.getPosition();
 
-  getPosition() {
-    return new Promise((resolve) =>
-      navigator.geolocation.getCurrentPosition(resolve, (err) => {
-        throw err;
-      })
-    );
-  }
-
-  async getLocalWeather(whatWeatherData) {
-    const pos = await this.getPosition();
 
     this.location.latitude = pos.coords.latitude;
     this.location.longitude = pos.coords.longitude;
     this.location.city = "";
 
-    return await this.getWeather(whatWeatherData);
-  }
+
+		return await this.getWeather(whatWeatherData);
+	}
+
+	async getWeatherAtSpecificPosition(position, whatWeatherData) {
+		this.position = position;
+
+		return await this.getWeather(whatWeatherData);
+	}
+
+	async getCity() {
+		const url = new URL("https://api.bigdatacloud.net");
+		url.pathname = "/data/reverse-geocode-client";
+		url.searchParams.set("latitude", this.location.latitude);
+		url.searchParams.set("longitude", this.location.longitude);
+		url.searchParams.set("localityLanguage", "sv");
+		console.log(url.href);
+
+		const returnedCity = await fetch(url).then((response) => response.json());
+
+		returnedCity.city != null
+			? (this.location.city = returnedCity.city)
+			: (this.location.city = returnedCity.localityInfo.administrative[4].name);
+		return this.location.city;
+	}
+
 }

@@ -467,7 +467,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-<<<<<<< HEAD
 
 .container {
   width: 100%;
@@ -502,6 +501,19 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 1536px;
   }
 }
+
+.absolute {
+  position: absolute;
+}
+
+.top-36 {
+  top: 9rem;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
 
 .mx-auto {
   margin-left: auto;
@@ -547,6 +559,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-3 {
   padding: 0.75rem;
+}
+
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .shadow-md {
@@ -765,5 +783,3 @@ article img {
   margin-right: auto;
   width: 8rem;
 }
-=======
->>>>>>> origin/master
