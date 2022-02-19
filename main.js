@@ -1,6 +1,7 @@
 import Weather from "./Weather.js";
 
 const weather = new Weather();
+
 const backgrounds = [
 	{
 		name: "Rain",
