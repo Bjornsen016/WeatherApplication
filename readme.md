@@ -3,6 +3,7 @@
 - Navigation med dropdown-meny
 - Funktion för att spara städer
 - Funktion som målar upp korten - kallar på fetch
+- Ta fram en long och lat från ett stadsnamn för att sparandet av städer ska senare kunna kalla på väder för den staden.
 
 
 # Grupprojekt - frontend app beskrivning
