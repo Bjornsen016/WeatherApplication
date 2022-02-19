@@ -85,6 +85,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
 
 document.getElementById("nav").addEventListener("click", (e) => {
   const choice = e.target.getAttribute("id");
+  const cityHeader = document.getElementById("city-header");
   const clearMain = () => {
     document.getElementById("main").innerHTML = "";
   };
@@ -92,6 +93,7 @@ document.getElementById("nav").addEventListener("click", (e) => {
   switch (Number(choice)) {
     case 1:
       clearMain();
+      cityHeader.innerText = "";
       weather.getWeather("current").then((data) => renderNow(data.current));
       break;
     case 2:
@@ -106,7 +108,6 @@ document.getElementById("nav").addEventListener("click", (e) => {
           return true;
         });
         weather.getCity().then((city) => {
-          const cityHeader = document.getElementById("city-header");
           console.log(city);
           cityHeader.innerText = city;
         });
@@ -195,5 +196,5 @@ function renderDayCard(item) {
     <p>${item.weather[0].description}</p>
   </article> `;
 }
-/* 
-weather.setBackground(renderNow, backgrounds); */
+
+weather.getWeather("current").then((data) => renderNow(data.current));
