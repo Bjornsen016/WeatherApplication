@@ -48,8 +48,8 @@ const citys = [
 	},
 	{
 		city: "Malmö",
-		latitude: 59.329323,
-		longitude: 18.068581,
+		latitude: 55.604981,
+		longitude: 13.003822,
 	},
 ];
 
@@ -70,8 +70,11 @@ document.getElementById("saved").addEventListener("click", (e) => {
 		const city = target.innerText;
 		const cityHeader = document.getElementById("city-header");
 		cityHeader.innerText = target.innerText;
-		console.log(city);
+		const newLocation = citys.filter((place) => place.city === city)[0];
+		weather.location = newLocation;
+
 		// Kalla på funktionen som plockar fram vädret för staden
+		weather.getWeather("current").then((data) => renderNow(data.current));
 	}
 });
 
@@ -85,6 +88,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
 
 document.getElementById("nav").addEventListener("click", (e) => {
 	const choice = e.target.getAttribute("id");
+	const cityHeader = document.getElementById("city-header");
 	const clearMain = () => {
 		document.getElementById("main").innerHTML = "";
 	};
@@ -92,7 +96,13 @@ document.getElementById("nav").addEventListener("click", (e) => {
 	switch (Number(choice)) {
 		case 1:
 			clearMain();
-			weather.setBackground(renderNow, backgrounds);
+			weather.getWeather("current").then((data) => renderNow(data.current));
+			if (weather.location.city == "") {
+				weather.getCity().then((city) => {
+					console.log(city);
+					cityHeader.innerText = city;
+				});
+			}
 			break;
 		case 2:
 			clearMain();
@@ -105,12 +115,13 @@ document.getElementById("nav").addEventListener("click", (e) => {
 					renderToday(weather);
 					return true;
 				});
+			});
+			if (weather.location.city == "") {
 				weather.getCity().then((city) => {
-					const cityHeader = document.getElementById("city-header");
 					console.log(city);
 					cityHeader.innerText = city;
 				});
-			});
+			}
 
 			break;
 		case 3:
@@ -121,11 +132,12 @@ document.getElementById("nav").addEventListener("click", (e) => {
 				});
 			});
 
-			weather.getCity().then((city) => {
-				const cityHeader = document.getElementById("city-header");
-				console.log(city);
-				cityHeader.innerText = city;
-			});
+			if (weather.location.city == "") {
+				weather.getCity().then((city) => {
+					console.log(city);
+					cityHeader.innerText = city;
+				});
+			}
 
 			break;
 	}
@@ -136,20 +148,21 @@ function addCity(city) {
 	if (city !== "") target.innerHTML += `<li>${city}</li>`;
 }
 
-function renderNow(background, type) {
+function renderNow(data) {
 	const main = document.getElementById("main");
-	const statement = backgrounds.filter((item) => item.name === type)[0]
-		?.statement;
+	const info = backgrounds.filter(
+		(item) => item.name === data.weather[0].main
+	)[0];
 
 	main.innerHTML = `
   <div id="now">
-    <div id="window"></div>
-    <h1 id="nowText">${statement}</h1>
+    <div id="window">${Math.floor(data.temp) + "º"}</div>
+    <h1 id="nowText">${info.statement}</h1>
   </div>`;
 
 	document.getElementById(
 		"window"
-	).style.backgroundImage = `url('${background}')`;
+	).style.backgroundImage = `url('${info.url}')`;
 }
 
 function renderToday(item) {
@@ -194,5 +207,5 @@ function renderDayCard(item) {
     <p>${item.weather[0].description}</p>
   </article> `;
 }
-/* 
-weather.setBackground(renderNow, backgrounds); */
+
+weather.getWeather("current").then((data) => renderNow(data.current));
