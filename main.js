@@ -1,7 +1,10 @@
 import Weather from "./Weather.js";
+import { dayOfWeekAsString } from "./utils.js";
 
 const weather = new Weather();
 
+//TODO: Ordna fram för Alla olika. Sätt en bugg för "Mist"
+//TODO: Såg att man kan ha mer än ett väder. Det får vi kanske kolla upp.
 const backgrounds = [
 	{
 		name: "Rain",
@@ -88,7 +91,6 @@ document.getElementById("submit").addEventListener("click", (e) => {
 
 document.getElementById("nav").addEventListener("click", (e) => {
 	const choice = e.target.getAttribute("id");
-	const cityHeader = document.getElementById("city-header");
 	const clearMain = () => {
 		document.getElementById("main").innerHTML = "";
 	};
@@ -98,10 +100,7 @@ document.getElementById("nav").addEventListener("click", (e) => {
 			clearMain();
 			weather.getWeather("current").then((data) => renderNow(data.current));
 			if (weather.location.city == "") {
-				weather.getCity().then((city) => {
-					console.log(city);
-					cityHeader.innerText = city;
-				});
+				renderCity();
 			}
 			break;
 		case 2:
@@ -117,10 +116,7 @@ document.getElementById("nav").addEventListener("click", (e) => {
 				});
 			});
 			if (weather.location.city == "") {
-				weather.getCity().then((city) => {
-					console.log(city);
-					cityHeader.innerText = city;
-				});
+				renderCity();
 			}
 
 			break;
@@ -133,10 +129,7 @@ document.getElementById("nav").addEventListener("click", (e) => {
 			});
 
 			if (weather.location.city == "") {
-				weather.getCity().then((city) => {
-					console.log(city);
-					cityHeader.innerText = city;
-				});
+				renderCity();
 			}
 
 			break;
@@ -187,19 +180,10 @@ function renderToday(item) {
 function renderDayCard(item) {
 	const main = document.getElementById("main");
 	const t = new Date(item.dt * 1000);
-	const days = [
-		"Måndag",
-		"Tisdag",
-		"Onsdag",
-		"Torsdag",
-		"Fredag",
-		"Lördag",
-		"Söndag",
-	];
 
 	main.innerHTML += `
   <article>
-    <h1>${days[t.getDay()]}<br>${t.toLocaleDateString()}</br></h1>
+    <h1>${dayOfWeekAsString(t.getDay())}<br>${t.toLocaleDateString()}</br></h1>
     <h2>${Math.floor(item.temp.day) + " Grader"}</h2>
     <img src="http://openweathermap.org/img/wn/${
 			item.weather[0].icon
@@ -208,4 +192,15 @@ function renderDayCard(item) {
   </article> `;
 }
 
-weather.getWeather("current").then((data) => renderNow(data.current));
+function renderCity() {
+	weather.getCity().then((city) => {
+		const cityHeader = document.getElementById("city-header");
+		console.log(city);
+		cityHeader.innerText = city;
+	});
+}
+
+weather.getLocalWeather("current").then((data) => {
+	renderNow(data.current);
+	renderCity();
+});
