@@ -1,5 +1,9 @@
 import Weather from "./Weather.js";
-import { dayOfWeekAsString } from "./utils.js";
+import {
+	dayOfWeekAsString,
+	capitalizeFirstLetter,
+	generate24HourTime,
+} from "./utils.js";
 
 const weather = new Weather();
 
@@ -160,19 +164,16 @@ function renderNow(data) {
 
 function renderToday(item) {
 	let main = document.getElementById("main");
-	let time = new Date(item.dt * 1000).toLocaleTimeString([], {
-		hour: "2-digit",
-		minute: "2-digit",
-	});
+	let time = generate24HourTime(item.dt);
 
 	main.innerHTML += `
     <article>
         <h1>${time}</h1>
-        <h2>${Math.floor(item.temp) + " Grader"}</h2>
+        <h2>${Math.floor(item.temp) + " ℃"}</h2>
         <img src="http://openweathermap.org/img/wn/${
 					item.weather[0].icon
-				}@2x.png" alt="${item.weather[0].description}" />
-        <p>${item.weather[0].description}</p>
+				}@2x.png" alt="${capitalizeFirstLetter(item.weather[0].description)}" />
+        <p>${capitalizeFirstLetter(item.weather[0].description)}</p>
     </article> 
     `;
 }
@@ -184,11 +185,11 @@ function renderDayCard(item) {
 	main.innerHTML += `
   <article>
     <h1>${dayOfWeekAsString(t.getDay())}<br>${t.toLocaleDateString()}</br></h1>
-    <h2>${Math.floor(item.temp.day) + " Grader"}</h2>
+    <h2>${Math.floor(item.temp.day) + " ℃"}</h2>
     <img src="http://openweathermap.org/img/wn/${
 			item.weather[0].icon
-		}@2x.png" alt="${item.weather[0].description}" />
-    <p>${item.weather[0].description}</p>
+		}@2x.png" alt="${capitalizeFirstLetter(item.weather[0].description)}" />
+    <p>${capitalizeFirstLetter(item.weather[0].description)}</p>
   </article> `;
 }
 
