@@ -106,4 +106,26 @@ export default class Weather {
 			: (this.location.city = returnedCity.localityInfo.administrative[4].name);
 		return this.location.city;
 	}
+
+	async getCoordinatesFromCityName(city) {
+		let url = new URL("https://us1.locationiq.com");
+		url.pathname = "/v1/search.php";
+		url.searchParams.set("q", city);
+		url.searchParams.set("key", "pk.9cc0196a2c945def2dc793920a63f8b0");
+		url.searchParams.set("format", "json");
+
+		const returnedPosition = await fetch(url).then((response) =>
+			response.json()
+		);
+
+		console.log(returnedPosition[0]); //Första positionen verkar nästan alltid vara vettigast iaf.
+
+		const position = {
+			city: city,
+			latitude: returnedPosition[0].lat,
+			longitude: returnedPosition[0].lon,
+		};
+
+		return position;
+	}
 }

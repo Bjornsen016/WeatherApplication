@@ -4,9 +4,18 @@ import {
 	capitalizeFirstLetter,
 	generate24HourTime,
 } from "./utils.js";
-import { citys, backgrounds } from "./consts.js";
+import {
+	citys,
+	backgrounds,
+	getCitysFromLocalStorage,
+	saveCitysToLocalStorage,
+} from "./consts.js";
 
 const weather = new Weather();
+
+//TODO Fixa en init funktion!?
+getCitysFromLocalStorage();
+renderSavedCitys();
 
 //TODO: Ordna fram för Alla olika. Sätt en bugg för "Mist"
 //TODO: Såg att man kan ha mer än ett väder. Det får vi kanske kolla upp.
@@ -82,9 +91,15 @@ document.getElementById("nav").addEventListener("click", (e) => {
 	}
 });
 
-function addCity(city) {
+async function addCity(city) {
 	const target = document.getElementById("savedList");
-	if (city !== "") target.innerHTML += `<li>${city}</li>`;
+	if (city !== "") {
+		let pos = await weather.getCoordinatesFromCityName(city);
+		citys.push(pos);
+		saveCitysToLocalStorage();
+
+		target.innerHTML += `<li>${city}</li>`;
+	}
 }
 
 function renderNow(data) {
@@ -140,6 +155,14 @@ function renderCity() {
 		const cityHeader = document.getElementById("city-header");
 		console.log(city);
 		cityHeader.innerText = city;
+	});
+}
+
+function renderSavedCitys() {
+	const savedList = document.getElementById("savedList");
+
+	citys.forEach((city) => {
+		savedList.innerHTML += `<li>${city.city}</li>`;
 	});
 }
 

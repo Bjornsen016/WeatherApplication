@@ -57,3 +57,17 @@ export const backgrounds = [
 		statement: "Just nu råder oväder",
 	},
 ];
+
+export function saveCitysToLocalStorage() {
+	localStorage.setItem("citys", JSON.stringify(citys));
+}
+
+export function getCitysFromLocalStorage() {
+	let storedCitys = JSON.parse(localStorage.getItem("citys"));
+	if (storedCitys != null) {
+		citys.splice(0);
+		storedCitys.forEach((city) => {
+			citys.push(city);
+		});
+	}
+}
