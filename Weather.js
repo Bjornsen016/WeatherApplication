@@ -111,7 +111,7 @@ export default class Weather {
 		let url = new URL("https://us1.locationiq.com");
 		url.pathname = "/v1/search.php";
 		url.searchParams.set("q", city);
-		url.searchParams.set("key", "pk.9cc0196a2c945def2dc793920a63f8b0");
+		url.searchParams.set("key", "pk.0978cb132be9fe7fa4aba7c81887136f");
 		url.searchParams.set("format", "json");
 
 		const returnedPosition = await fetch(url).then((response) =>
