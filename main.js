@@ -20,7 +20,7 @@ const backgrounds = [
   },
   {
     name: "Clear",
-    url: "https://media0.giphy.com/media/EKpmZuydbsmRy/giphy.gif?cid=ecf05e47rx85450iutghyhy7nd1y7td8k47al5ti8fdmd026&rid=giphy.gif&ct=g",
+    url: "https://media4.giphy.com/media/3o6wrFbvaNWm7z4kRG/giphy.gif?cid=ecf05e47p3rhd5a7my9vbudrb03h5208v17ckaw2fesseua5&rid=giphy.gif&ct=g",
     statement: "Just nu är det klart ute",
   },
   {
@@ -70,8 +70,8 @@ document.getElementById("saved").addEventListener("click", (e) => {
     const city = target.innerText;
     const cityHeader = document.getElementById("city-header");
     cityHeader.innerText = target.innerText;
-    console.log(city);
     // Kalla på funktionen som plockar fram vädret för staden
+    weather.getCoords(city);
   }
 });
 
