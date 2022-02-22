@@ -71,7 +71,6 @@ document.getElementById("saved").addEventListener("click", (e) => {
     const cityHeader = document.getElementById("city-header");
     cityHeader.innerText = target.innerText;
     // Kalla på funktionen som plockar fram vädret för staden
-    weather.getCoords(city);
   }
 });
 

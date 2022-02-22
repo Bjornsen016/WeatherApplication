@@ -108,16 +108,4 @@ export default class Weather {
       : (this.location.city = returnedCity.localityInfo.administrative[4].name);
     return this.location.city;
   }
-
-  async getCoords(city) {
-    const url = new URL(
-      "http://api.positionstack.com/v1/forward?access_key=70e0f37d4000874aaeff83e495b6094a"
-    );
-    url.searchParams.set("query", city);
-
-    let res = await fetch(url);
-    let data = await res.json();
-
-    console.log(data.data[0]);
-  }
 }
