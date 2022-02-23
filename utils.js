@@ -33,3 +33,23 @@ export function dayOfWeekAsString(dayIndex) {
 		] || ""
 	);
 }
+/**
+ *
+ * @param {string} string
+ * @returns {string} The same string with the first letter uppercase.
+ */
+export function capitalizeFirstLetter(string) {
+	return string[0].toUpperCase() + string.slice(1);
+}
+
+/**
+ *
+ * @param {number} unixTime
+ * @returns {Date}
+ */
+export function generate24HourTime(unixTime) {
+	return new Date(unixTime * 1000).toLocaleTimeString([], {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+}
