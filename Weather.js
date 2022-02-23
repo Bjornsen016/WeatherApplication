@@ -85,12 +85,22 @@ export default class Weather {
 		return await this.getWeather(whatWeatherData);
 	}
 
+	/**
+	 *
+	 * @param {position} position
+	 * @param {string} whatWeatherData
+	 * @returns {Object}
+	 */
 	async getWeatherAtSpecificPosition(position, whatWeatherData) {
 		this.position = position;
 
 		return await this.getWeather(whatWeatherData);
 	}
 
+	/**
+	 *
+	 * @returns {string} City name
+	 */
 	async getCity() {
 		const url = new URL("https://api.bigdatacloud.net");
 		url.pathname = "/data/reverse-geocode-client";
@@ -107,6 +117,11 @@ export default class Weather {
 		return this.location.city;
 	}
 
+	/**
+	 *
+	 * @param {string} city
+	 * @returns {position}
+	 */
 	async getCoordinatesFromCityName(city) {
 		let url = new URL("https://us1.locationiq.com");
 		url.pathname = "/v1/search.php";
