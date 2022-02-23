@@ -523,6 +523,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -567,6 +571,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .shadow-md {
@@ -708,9 +717,17 @@ body {
 }
 
 #window {
+  display: flex;
   height: 24rem;
   width: 24rem;
+  align-items: center;
+  justify-content: center;
   border-radius: 9999px;
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 100;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
   box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
   background-repeat: none;
   background-size: cover;

@@ -52,6 +52,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
 
 document.getElementById("nav").addEventListener("click", (e) => {
 	const choice = e.target.getAttribute("id");
+	const cityHeader = document.getElementById("city-header");
 	const clearMain = () => {
 		document.getElementById("main").innerHTML = "";
 	};
