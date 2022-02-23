@@ -3,89 +3,88 @@
 @tailwind utilities;
 
 body {
-	@apply overflow-hidden bg-sky-100 select-none;
-
+  @apply overflow-hidden bg-sky-100 select-none;
 }
 
 #nav li,
 #saved li {
-	@apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md;
+  @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md;
 }
 
 #saved {
-	@apply flex justify-center items-center max-w-4xl rounded-full 
+  @apply flex justify-center items-center max-w-4xl rounded-full 
   mx-auto bg-sky-500 shadow-inner p-1 m-2 font-thin text-white;
 }
 
 #saved ul {
-	@apply flex justify-around w-full;
+  @apply flex justify-around w-full;
 }
 
 #saved li {
-	@apply font-light !important;
+  @apply font-light !important;
 }
 
 #saved em {
-	@apply bg-sky-400 shadow-md p-3 rounded-full cursor-pointer hover:shadow-sm relative;
+  @apply bg-sky-400 shadow-md p-3 rounded-full cursor-pointer hover:shadow-sm relative;
 }
 
 #dropdown {
-	@apply absolute right-1 top-12 p-3 bg-zinc-100/10 shadow-lg rounded-lg 
+  @apply absolute right-1 top-12 p-3 bg-zinc-100/10 shadow-lg rounded-lg 
   flex-col items-center cursor-default;
-	font-family: ui-sans-serif, system-ui;
-	display: none;
+  font-family: ui-sans-serif, system-ui;
+  display: none;
 }
 
 #dropdown input {
-	@apply p-2 rounded-lg shadow-inner text-black
+  @apply p-2 rounded-lg shadow-inner text-black
 
   placeholder:text-base outline-none mb-4 bg-zinc-100/80;
 }
 
 #dropdown button {
-	@apply bg-sky-500 p-3 rounded-full font-medium shadow-sm;
+  @apply bg-sky-500 p-3 rounded-full font-medium shadow-sm;
 }
 
 #window {
-	@apply rounded-full w-96 h-96;
-	box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
-	background-repeat: none;
-	background-size: cover;
-	background-position: center;
+  @apply rounded-full w-96 h-96 flex justify-center items-center
+  text-5xl text-white font-thin;
+  box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
 }
 
 #now {
-	@apply h-[900px] flex flex-col justify-center items-center;
+  @apply h-[900px] flex flex-col justify-center items-center;
 }
 
 #nowText {
-	@apply text-center text-white text-3xl font-thin mt-4;
+  @apply text-center text-white text-3xl font-thin mt-4;
 }
 
 #main {
-	@apply flex flex-row justify-evenly items-center h-[900px] flex-wrap;
+  @apply flex flex-row justify-evenly items-center h-[900px] flex-wrap;
 }
 
 article {
-	@apply justify-center w-40 m-8 bg-sky-500/50 rounded-md 
+  @apply justify-center w-40 m-8 bg-sky-500/50 rounded-md 
 
   text-white font-medium text-center flex flex-col overflow-hidden
   shadow-md;
 }
 
 article h1 {
-	@apply text-lg p-3 bg-sky-600;
+  @apply text-lg p-3 bg-sky-600;
 }
 
 article h2 {
-	@apply pt-3;
+  @apply pt-3;
 }
 
 article p {
-	@apply pb-3 font-thin !important;
+  @apply pb-3 font-thin !important;
 }
 
 article img {
-	@apply w-32 mx-auto;
-
+  @apply w-32 mx-auto;
 }
