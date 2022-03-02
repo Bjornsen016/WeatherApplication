@@ -13,12 +13,10 @@ import {
 
 const weather = new Weather();
 
-//TODO Fixa en init funktion!?
 getCitysFromLocalStorage();
 renderSavedCitys();
 
-//TODO: Ordna fram för Alla olika. Sätt en bugg för "Mist"
-//TODO: Såg att man kan ha mer än ett väder. Det får vi kanske kolla upp.
+//TODO: BUGG för "Mist" på just nu. Har ingen bild så laddar inget.
 
 document.getElementById("saved").addEventListener("click", (e) => {
 	let target = e.target;
