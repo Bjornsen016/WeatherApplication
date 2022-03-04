@@ -8,12 +8,12 @@ body {
 
 #nav li,
 #saved li {
-  @apply p-1 px-3 text-white font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md;
+  @apply p-1 px-3  font-medium text-lg cursor-pointer hover:bg-gray-100/30 rounded-md;
 }
 
 #saved {
   @apply flex justify-center items-center max-w-4xl rounded-full 
-  mx-auto bg-sky-500 shadow-inner p-1 m-2 font-thin text-white;
+  mx-auto bg-gray-100/50 shadow-inner p-1 m-2 font-thin;
 }
 
 #saved ul {
@@ -25,11 +25,11 @@ body {
 }
 
 #saved em {
-  @apply bg-sky-400 shadow-md p-3 rounded-full cursor-pointer hover:shadow-sm relative;
+  @apply bg-gray-500 shadow-md p-3 rounded-full cursor-pointer hover:shadow-sm relative;
 }
 
 #dropdown {
-  @apply absolute right-1 top-12 p-3 bg-zinc-100/10 shadow-lg rounded-lg 
+  @apply absolute right-1 top-12 p-3 bg-zinc-100/60 shadow-lg rounded-lg 
   flex-col items-center cursor-default;
   font-family: ui-sans-serif, system-ui;
   display: none;
@@ -42,13 +42,12 @@ body {
 }
 
 #dropdown button {
-  @apply bg-sky-500 p-3 rounded-full font-medium shadow-sm;
+  @apply bg-gray-500 p-3 rounded-full font-medium shadow-sm;
 }
 
 #window {
   @apply rounded-full w-96 h-96 flex justify-center items-center
-  text-5xl text-white font-thin;
-  box-shadow: 20px 20px 60px #30a1d3, -20px -20px 60px #40d9ff;
+  text-5xl  font-thin;
   background-repeat: none;
   background-size: cover;
   background-position: center;
@@ -59,7 +58,7 @@ body {
 }
 
 #nowText {
-  @apply text-center text-white text-3xl font-thin mt-4;
+  @apply text-center  text-3xl font-thin mt-4;
 }
 
 #main {
@@ -67,14 +66,14 @@ body {
 }
 
 article {
-  @apply justify-center w-40 m-8 bg-sky-500/50 rounded-md 
+  @apply justify-center w-40 m-8 bg-gray-400/50 rounded-md 
 
-  text-white font-medium text-center flex flex-col overflow-hidden
+   font-medium text-center flex flex-col overflow-hidden
   shadow-md;
 }
 
 article h1 {
-  @apply text-lg p-3 bg-sky-600;
+  @apply text-lg p-3 bg-gray-500/50;
 }
 
 article h2 {
